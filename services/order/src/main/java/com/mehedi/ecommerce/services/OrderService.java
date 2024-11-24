@@ -37,8 +37,8 @@ public class OrderService {
             CreateOrderLineRequest orderLineRequest = new CreateOrderLineRequest(
                     purchase.getProductId(),
                     purchase.getQuantity(),
-                    purchase.getPrice(),
-                    purchase.getPrice().multiply(new BigDecimal(purchase.getQuantity()))
+                    purchase.getUnitPrice(),
+                    purchase.getTotalPrice()
             );
 
             OrderLine orderLine = orderLineService.create(orderLineRequest);

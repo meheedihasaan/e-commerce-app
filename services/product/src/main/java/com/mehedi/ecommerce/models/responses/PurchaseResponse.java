@@ -16,5 +16,6 @@ public class PurchaseResponse {
     private String productName;
     private String description;
     private Integer quantity;
-    private BigDecimal price;
+    private BigDecimal unitPrice;
+    private BigDecimal totalPrice;
 }

@@ -7,6 +7,7 @@ import com.mehedi.ecommerce.models.responses.PurchaseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,8 @@ public class PurchaseService {
                     .productName(product.getName())
                     .description(product.getDescription())
                     .quantity(request.quantity())
-                    .price(product.getPrice())
+                    .unitPrice(product.getPrice())
+                    .totalPrice(product.getPrice().multiply(new BigDecimal(request.quantity())))
                     .build();
 
             purchaseResponses.add(purchaseResponse);
