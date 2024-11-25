@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public record CreateOrderRequest(
         @NotNull(message = "Customer ID is required.")
-        UUID customerId,
+        String customerId,
         @NotNull(message = "Payment method is required.")
         PaymentMethod paymentMethod,
         String reference,

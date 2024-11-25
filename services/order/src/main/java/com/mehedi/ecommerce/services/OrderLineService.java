@@ -6,11 +6,22 @@ import com.mehedi.ecommerce.repositories.OrderLineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class OrderLineService {
 
     private final OrderLineRepository orderLineRepository;
+
+    public List<OrderLine> findAllByOrderId(UUID orderId) {
+        return orderLineRepository.findAllByOrderId(orderId);
+    }
+
+    public OrderLine findById(UUID id) {
+        return orderLineRepository.findById(id).orElse(null);
+    }
 
     public OrderLine create(CreateOrderLineRequest request) {
         OrderLine orderLine = OrderLine.builder()

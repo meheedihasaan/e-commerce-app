@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @FeignClient(
         name = "customer-service",
@@ -15,5 +14,5 @@ import java.util.UUID;
 public interface CustomerClient {
 
     @GetMapping(value = "/{id}")
-    Optional<CustomerResponse> findById(@PathVariable UUID id);
+    Optional<CustomerResponse> findById(@PathVariable String id);
 }

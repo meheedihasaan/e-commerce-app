@@ -24,7 +24,7 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private UUID customerId;
+    private String customerId;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     private BigDecimal totalAmount;
