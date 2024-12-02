@@ -1,6 +1,7 @@
 package com.mehedi.ecommerce.services;
 
 import com.mehedi.ecommerce.clients.CustomerClient;
+import com.mehedi.ecommerce.clients.PaymentClient;
 import com.mehedi.ecommerce.clients.PurchaseClient;
 import com.mehedi.ecommerce.entities.Order;
 import com.mehedi.ecommerce.entities.OrderLine;
@@ -8,6 +9,7 @@ import com.mehedi.ecommerce.exceptions.BusinessException;
 import com.mehedi.ecommerce.kafka.OrderProducer;
 import com.mehedi.ecommerce.models.requests.CreateOrderLineRequest;
 import com.mehedi.ecommerce.models.requests.CreateOrderRequest;
+import com.mehedi.ecommerce.models.requests.PaymentRequest;
 import com.mehedi.ecommerce.models.responses.CustomerResponse;
 import com.mehedi.ecommerce.models.responses.OrderConfirmation;
 import com.mehedi.ecommerce.models.responses.PurchaseResponse;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -30,6 +33,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
+    private final PaymentClient paymentClient;
     private final PurchaseClient purchaseClient;
 
     public Page<Order> getAll(Pageable pageable) {
@@ -42,8 +46,10 @@ public class OrderService {
     }
 
     public UUID create(CreateOrderRequest request) {
-        CustomerResponse customer = customerClient.findById(request.customerId())
-                .orElseThrow(()-> new BusinessException("Can not place the order. Customer not found"));
+        CustomerResponse customer = customerClient.findById(request.customerId());
+        if (Objects.isNull(customer)) {
+            throw new BusinessException("Can not place the order. Customer not found");
+        }
 
         List<PurchaseResponse> purchases = purchaseClient.purchase(request.purchases());
 
@@ -69,6 +75,19 @@ public class OrderService {
                 .build();
 
         order = orderRepository.save(order);
+
+        PaymentRequest paymentRequest = new PaymentRequest(
+                request.paymentMethod(),
+                order.getTotalAmount(),
+                order.getReference(),
+                customer.getId(),
+                customer.getFirstName(),
+                customer.getLastName(),
+                customer.getEmail(),
+                order.getId()
+        );
+
+        paymentClient.process(paymentRequest);
 
         OrderConfirmation orderConfirmation = OrderConfirmation.builder()
                 .customer(customer)
