@@ -33,10 +33,11 @@ public class PaymentService {
                         payment.getPaymentMethod(),
                         payment.getAmount(),
                         payment.getReference(),
+                        request.customerId(),
                         request.firstName(),
                         request.lastName(),
-                        request.email()
-                )
+                        request.email(),
+                        payment.getOrderId())
         );
 
         return payment.getId();

@@ -4,19 +4,20 @@ import com.mehedi.ecommerce.enums.PaymentMethod;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.UUID;
 
 @Builder
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class OrderConfirmation {
+public class PaymentConfirmation {
     private PaymentMethod paymentMethod;
-    private BigDecimal totalPrice;
+    private BigDecimal amount;
     private String reference;
-    private CustomerResponse customer;
-    private List<PurchaseResponse> purchases = new ArrayList<>();
+    private String customerId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private UUID orderId;
 }

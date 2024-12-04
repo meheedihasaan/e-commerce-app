@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @FeignClient(
         name = "payment-service",
-        url = "${application.config.payment-service.url}"
+        url = "${application.config.payment-service-url}"
 )
 public interface PaymentClient {
 
