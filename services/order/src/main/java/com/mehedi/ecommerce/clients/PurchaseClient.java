@@ -11,10 +11,10 @@ import java.util.List;
 
 @FeignClient(
         name = "purchase-service",
-        url = "${application.config.purchase-service-url}"
+        url = "${application.config.product-service-url}"
 )
 public interface PurchaseClient {
 
-    @PostMapping
+    @PostMapping(value = "/purchases")
     List<PurchaseResponse> purchase(@Valid @RequestBody List<PurchaseRequest> requests);
 }
