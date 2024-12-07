@@ -11,6 +11,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class PaymentConfirmation {
     private PaymentMethod paymentMethod;
     private BigDecimal amount;

@@ -17,10 +17,9 @@ import org.springframework.stereotype.Service;
 public class NotificationConsumer {
 
     private final EmailService emailService;
-
     private final NotificationService notificationService;
 
-    @KafkaListener(topics = "payment-topic")
+    @KafkaListener(topics = "payment-topic", groupId = "paymentGroup")
     public void consumePaymentConfirmation(PaymentConfirmation paymentConfirmation) {
         log.info("Consuming payment confirmation from Kafka topic: {}", paymentConfirmation);
         notificationService.create(NotificationType.PAYMENT_CONFIRMATION, null, paymentConfirmation);
@@ -29,7 +28,7 @@ public class NotificationConsumer {
         emailService.sendPaymentConfirmationMail(customerName, paymentConfirmation.getEmail(), paymentConfirmation.getAmount(), paymentConfirmation.getReference());
     }
 
-    @KafkaListener(topics = "order-topic")
+    @KafkaListener(topics = "order-topic", groupId = "orderGroup")
     public void consumeOrderConfirmation(OrderConfirmation orderConfirmation) {
         log.info("Consuming order confirmation from Kafka topic: {}", orderConfirmation);
         notificationService.create(NotificationType.ORDER_CONFIRMATION, orderConfirmation, null);

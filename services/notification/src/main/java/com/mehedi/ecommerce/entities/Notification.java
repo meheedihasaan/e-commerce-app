@@ -7,7 +7,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -21,5 +21,5 @@ public class Notification {
     private NotificationType type;
     private OrderConfirmation orderConfirmation;
     private PaymentConfirmation paymentConfirmation;
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
 }

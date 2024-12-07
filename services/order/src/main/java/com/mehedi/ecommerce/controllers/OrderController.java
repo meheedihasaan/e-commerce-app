@@ -8,15 +8,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
-@Service
+@RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/orders")
+@RequestMapping(value = "/api/v1/orders")
 public class OrderController {
 
     private final OrderService orderService;

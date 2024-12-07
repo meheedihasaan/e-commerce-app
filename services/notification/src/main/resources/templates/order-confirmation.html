@@ -71,8 +71,8 @@
         <tbody>
         <tr th:each="purchase : ${purchases}">
             <td th:text="${purchase.productName}"></td>
-            <td th:text="${product.quantity}"></td>
-            <td th:text="${product.unitPrice}"></td>
+            <td th:text="${purchase.quantity}"></td>
+            <td th:text="${purchase.unitPrice}"></td>
         </tr>
         </tbody>
     </table>

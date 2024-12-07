@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 
@@ -24,7 +25,7 @@ public class NotificationService {
                 .type(type)
                 .orderConfirmation(orderConfirmation)
                 .paymentConfirmation(paymentConfirmation)
-                .createdAt(OffsetDateTime.now(ZoneOffset.UTC))
+                .createdAt(LocalDateTime.now())
                 .build();
 
         notification = notificationRepository.save(notification);

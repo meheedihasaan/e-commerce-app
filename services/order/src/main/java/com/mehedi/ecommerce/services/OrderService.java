@@ -92,7 +92,7 @@ public class OrderService {
         OrderConfirmation orderConfirmation = OrderConfirmation.builder()
                 .customer(customer)
                 .paymentMethod(request.paymentMethod())
-                .totalPrice(order.getTotalAmount())
+                .totalAmount(order.getTotalAmount())
                 .reference(order.getReference())
                 .purchases(purchases)
                 .build();

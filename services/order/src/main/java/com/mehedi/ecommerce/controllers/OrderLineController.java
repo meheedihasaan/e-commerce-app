@@ -4,15 +4,14 @@ import com.mehedi.ecommerce.entities.OrderLine;
 import com.mehedi.ecommerce.services.OrderLineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/orderlines/")
+@RequestMapping(value = "/api/v1/orderlines/")
 public class OrderLineController {
 
     private final OrderLineService orderLineService;

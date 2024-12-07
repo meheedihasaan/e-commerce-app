@@ -1,5 +1,6 @@
 package com.mehedi.ecommerce.services;
 
+import com.mehedi.ecommerce.entities.Address;
 import com.mehedi.ecommerce.models.requests.CreateCustomerRequest;
 import com.mehedi.ecommerce.models.requests.UpdateCustomerRequest;
 import com.mehedi.ecommerce.entities.Customer;
@@ -26,12 +27,17 @@ public class CustomerService {
     }
 
     public String create(CreateCustomerRequest request) {
+        Address address = Address.builder()
+                .street(request.address().street())
+                .houseNumber(request.address().houseNumber())
+                .zipCode(request.address().zipCode())
+                .build();
+
         Customer customer = Customer.builder()
-                .id(request.id())
                 .firstName(request.firstName())
                 .lastName(request.lastName())
                 .email(request.email())
-                .address(request.address())
+                .address(address)
                 .build();
         customer = customerRepository.save(customer);
         return customer.getId();
@@ -39,10 +45,17 @@ public class CustomerService {
 
     public void update(String id, UpdateCustomerRequest request) {
         Customer customer = findById(id);
+
+        Address address = Address.builder()
+                .street(request.address().street())
+                .houseNumber(request.address().houseNumber())
+                .zipCode(request.address().zipCode())
+                .build();
+
         customer.setFirstName(request.firstName());
         customer.setLastName(request.lastName());
         customer.setEmail(request.email());
-        customer.setAddress(request.address());
+        customer.setAddress(address);
         customerRepository.save(customer);
     }
 

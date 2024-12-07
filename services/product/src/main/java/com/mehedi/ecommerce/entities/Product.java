@@ -13,14 +13,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity(name = "products")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String name;
+
     @Column(columnDefinition = "TEXT")
     private String description;
+
     private Integer quantity;
+
     private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

@@ -15,7 +15,7 @@ import java.util.List;
 @ToString
 public class OrderConfirmation {
     private PaymentMethod paymentMethod;
-    private BigDecimal totalPrice;
+    private BigDecimal totalAmount;
     private String reference;
     private CustomerResponse customer;
     private List<PurchaseResponse> purchases = new ArrayList<>();

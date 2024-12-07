@@ -20,17 +20,25 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name = "payments")
 public class Payment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String customerId;
+
     private UUID orderId;
+
     private PaymentMethod paymentMethod;
+
     private BigDecimal amount;
+
     private String reference;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedAt;
